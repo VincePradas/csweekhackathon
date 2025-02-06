@@ -10,6 +10,7 @@ module.exports = {
         'sans': ['Poppins', 'sans-serif'],
         'poppins': ['Poppins', 'sans-serif'],
       },
+      // Optional: Add custom font weights if needed
       fontWeight: {
         light: 300,
         normal: 400,
