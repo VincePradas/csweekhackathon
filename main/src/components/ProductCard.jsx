@@ -1,10 +1,14 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import productApi from "../services/api";
 
 const ProductCard = ({ product }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    
+    const [cartData, setCartData] = useState({
+        productId: product._id,
+        quantity: 1
+    });
+
     const {
       _id,
       name,
@@ -28,42 +32,15 @@ const ProductCard = ({ product }) => {
 
     const addToCart = async () => {
       setIsLoading(true);
-      setError(null);
-
       try {
-        // Get existing cart from localStorage
-        const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
-        
-        // Check if product already exists in cart
-        const existingItemIndex = existingCart.findIndex(item => item.productId === _id);
-        
-        if (existingItemIndex !== -1) {
-          // If product exists, increment quantity
-          existingCart[existingItemIndex].quantity += 1;
-        } else {
-          // If product doesn't exist, add new item
-          existingCart.push({
-            productId: _id,
-            name,
-            price,
-            quantity: 1,
-            imageUrl
-          });
-        }
-
-        // Save updated cart back to localStorage
-        localStorage.setItem('cart', JSON.stringify(existingCart));
-        
-        console.log('Item added to cart successfully');
-
-      } catch (err) {
-        setError('Failed to add item to cart');
-        console.error('Error adding to cart:', err);
+        await productApi.addToCart(cartData);
+      } catch (error) {
+        setError('Failed to add to cart. Please try again.');
       } finally {
         setIsLoading(false);
       }
-    };
-  
+    }
+
     return (
       <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
         <div className="relative">
@@ -119,5 +96,4 @@ const ProductCard = ({ product }) => {
     )
   };
 
-  
-export default ProductCard; 
+export default ProductCard;

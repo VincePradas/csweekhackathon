@@ -106,6 +106,15 @@ const productApi = {
     } catch (error) {
       throw error;
     }
+  },
+
+  addToCart: async (data) => {
+    try {
+      const response = await apiClient.post('/cart/add', data);
+      return response
+    } catch (error) {
+      throw error;
+    }
   }
 };
 

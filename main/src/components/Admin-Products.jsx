@@ -3,18 +3,21 @@ import { FaEdit, FaTrashAlt, FaPlus } from "react-icons/fa";
 import useFetchProducts from "../hooks/fetchProducts";
 import productApi from "../services/api";
 
-const AdminProducts = ({ onEdit, onDelete }) => {
+const AdminProducts = () => {
   const { products, productCount, loading, error } = useFetchProducts();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const [showModal, setShowModal] = useState(false);
-  const [newProduct, setNewProduct] = useState({
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const [productForm, setProductForm] = useState({
     name: "",
     description: "",
     category: "",
     price: "",
     stock: "",
-    media: null,
+    media: "",
   });
 
   const handleNextPage = () => {
@@ -27,21 +30,44 @@ const AdminProducts = ({ onEdit, onDelete }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewProduct({ ...newProduct, [name]: value });
+    setProductForm({ ...productForm, [name]: value });
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      await productApi.createProduct(newProduct);
+      if (isEditing) {
+        await productApi.updateProduct(selectedProduct, productForm);
+      } else {
+        await productApi.createProduct(productForm);
+      }
       setShowModal(false);
+      setIsEditing(false);
+      setSelectedProduct(null);
     } catch (error) {
-      console.error("Error creating product:", error);
+      console.error("Error saving product:", error);
+    }
+  };
+
+  const handleEdit = (product) => {
+    setIsEditing(true);
+    setSelectedProduct(product._id);
+    setProductForm(product);
+    setShowModal(true);
+  };
+
+  const handleDelete = async (productId) => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      try {
+        await productApi.deleteProduct(productId);
+        alert("Product deleted successfully!");
+      } catch (error) {
+        console.error("Error deleting product:", error);
+      }
     }
   };
 
   const currentProducts = products.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-
   return (
     <div>
       {loading && <p>Loading products...</p>}
@@ -50,7 +76,18 @@ const AdminProducts = ({ onEdit, onDelete }) => {
         <h2 className="text-xl font-semibold text-gray-700">Products</h2>
         <button
           className="text-white bg-green-600 hover:bg-green-700 px-4 py-2 rounded"
-          onClick={() => setShowModal(true)}
+          onClick={() => {
+            setShowModal(true);
+            setIsEditing(false);
+            setProductForm({
+              name: "",
+              description: "",
+              category: "",
+              price: "",
+              stock: "",
+              media: "",
+            });
+          }}
         >
           <FaPlus className="inline mr-2" /> New Product
         </button>
@@ -58,14 +95,16 @@ const AdminProducts = ({ onEdit, onDelete }) => {
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-            <h2 className="text-xl font-semibold text-gray-700 mb-4">Add New Product</h2>
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">
+              {isEditing ? "Edit Product" : "Add New Product"}
+            </h2>
             <form onSubmit={handleFormSubmit} className="space-y-4">
               <div>
                 <label className="block text-gray-700">Name</label>
                 <input
                   type="text"
                   name="name"
-                  value={newProduct.name}
+                  value={productForm.name}
                   onChange={handleInputChange}
                   className="w-full p-2 border border-gray-300 rounded"
                 />
@@ -75,7 +114,7 @@ const AdminProducts = ({ onEdit, onDelete }) => {
                 <input
                   type="text"
                   name="description"
-                  value={newProduct.description}
+                  value={productForm.description}
                   onChange={handleInputChange}
                   className="w-full p-2 border border-gray-300 rounded"
                 />
@@ -85,7 +124,7 @@ const AdminProducts = ({ onEdit, onDelete }) => {
                 <input
                   type="text"
                   name="category"
-                  value={newProduct.category}
+                  value={productForm.category}
                   onChange={handleInputChange}
                   className="w-full p-2 border border-gray-300 rounded"
                 />
@@ -95,7 +134,7 @@ const AdminProducts = ({ onEdit, onDelete }) => {
                 <input
                   type="number"
                   name="price"
-                  value={newProduct.price}
+                  value={productForm.price}
                   onChange={handleInputChange}
                   className="w-full p-2 border border-gray-300 rounded"
                 />
@@ -105,17 +144,8 @@ const AdminProducts = ({ onEdit, onDelete }) => {
                 <input
                   type="number"
                   name="stock"
-                  value={newProduct.stock}
+                  value={productForm.stock}
                   onChange={handleInputChange}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </div>
-              <div>
-                <label className="block text-gray-700">Thumbnail</label>
-                <input
-                  type="file"
-                  name="thumbnail"
-                  value={newProduct.media}
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </div>
@@ -131,7 +161,7 @@ const AdminProducts = ({ onEdit, onDelete }) => {
                   type="submit"
                   className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
                 >
-                  Add Product
+                  {isEditing ? "Update Product" : "Add Product"}
                 </button>
               </div>
             </form>
@@ -157,10 +187,16 @@ const AdminProducts = ({ onEdit, onDelete }) => {
               <td className="px-6 py-4 whitespace-nowrap">{product.stock}</td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="flex space-x-2">
-                  <button className="text-green-600/50 hover:text-blue-900 px-2" onClick={() => onEdit(product.id)}>
+                  <button
+                    className="text-green-600/50 hover:text-blue-900 px-2"
+                    onClick={() => handleEdit(product)}
+                  >
                     <FaEdit />
                   </button>
-                  <button className="text-red-600/50 hover:text-red-900 px-2" onClick={() => onDelete(product.id)}>
+                  <button
+                    className="text-red-600/50 hover:text-red-900 px-2"
+                    onClick={() => handleDelete(product._id)}
+                  >
                     <FaTrashAlt />
                   </button>
                 </div>
