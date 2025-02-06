@@ -66,11 +66,11 @@ const ProductsPage = () => {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm md:text-base transition-colors
+                className={`px-4 py-2 rounded-lg text-sm md:text-base transition-colors
                   ${selectedCategory === category
                     ? 'bg-green-500 text-white'
                     : 'bg-white text-gray-700 hover:bg-green-100'
-                  } border border-green-500`}
+                  } border border-green-500/50`}
               >
                 {category === 'All' ? category : category.split(' ').map(word => 
                   word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
