@@ -1,7 +1,14 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faShoppingCart, faSearch, faBars, faTimes, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUser,
+  faShoppingCart,
+  faSearch,
+  faBars,
+  faTimes,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -40,17 +47,34 @@ function Navbar() {
 
             {/* Icons */}
             <div className="flex items-center gap-6">
-              <Link to="/profile" className="relative">
-                <FontAwesomeIcon icon={faUser} className="text-green-600 text-2xl" />
-              </Link>
-              <Link to="/mycart" className="flex items-center gap-2">
+              <button className="relative">
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="text-black text-xl"
+                />
+              </button>
+              <div className="flex items-center gap-2">
                 <button className="relative">
-                    <FontAwesomeIcon icon={faShoppingCart} className="text-green-600 text-2xl" />
-                    <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                        {JSON.parse(localStorage.getItem('cart'))?.length || 0}
-                    </span>
+                  <FontAwesomeIcon
+                    icon={faShoppingCart}
+                    className="text-black text-xl"
+                  />
+                  <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    0
+                  </span>
                 </button>
-              </Link>
+              </div>
+              <div className="flex items-center gap-2">
+                <button className="relative">
+                  <FontAwesomeIcon
+                    icon={faHeart}
+                    className="text-black text-xl"
+                  />
+                  <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    0
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -66,11 +90,14 @@ function Navbar() {
                 <span className="text-xl font-bold text-[#9FE870]">GO</span>
               </div>
             </Link>
-            <button 
+            <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-gray-600"
             >
-              <FontAwesomeIcon icon={isMobileMenuOpen ? faTimes : faBars} className="text-2xl" />
+              <FontAwesomeIcon
+                icon={isMobileMenuOpen ? faTimes : faBars}
+                className="text-2xl"
+              />
             </button>
           </div>
 
@@ -95,6 +122,18 @@ function Navbar() {
                   <FontAwesomeIcon icon={faUser} className="text-green-400" />
                   <span>Account</span>
                 </button>
+                <button className="flex items-center gap-2">
+                  <div className="relative">
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      className="text-green-400"
+                    />
+                    <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                      0
+                    </span>
+                  </div>
+                  <span>Wishlist</span>
+                </button>
               </div>
 
               {/* Cart Summary */}
@@ -106,12 +145,12 @@ function Navbar() {
                       className="text-green-400"
                     />
                     <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                      {JSON.parse(localStorage.getItem('cart'))?.length || 0}
+                      20
                     </span>
                   </div>
                   <span>Cart</span>
                 </div>
-                <div className="font-semibold">₱0</div>
+                <div className="font-semibold">₱100</div>
               </div>
             </div>
           )}
