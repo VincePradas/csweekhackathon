@@ -1,7 +1,8 @@
+// pages/dashboard/main.js
 import React from "react";
-import { Link } from "react-router-dom"; // if you're using React Router
+import { Link } from "react-router-dom";
 
-// Example of a card component to display a dashboard item
+// Card component stays the same
 const Card = ({ title, value, icon }) => {
   return (
     <div className="bg-white shadow-md rounded-lg p-4 flex items-center space-x-4">
@@ -16,22 +17,32 @@ const Card = ({ title, value, icon }) => {
 
 const Dashboard = () => {
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-6">Admin Dashboard</h1>
-      
-      {/* Dashboard Summary Section */}
-      <div className="grid grid-cols-3 gap-6 mb-8">
-        <Card title="Total Products" value="100" icon="📦" />
-        <Card title="Total Orders" value="250" icon="🛒" />
-        <Card title="Total Revenue" value="$2,500" icon="💵" />
-      </div>
+    <div className="min-h-screen bg-gray-100">
+      <header className="bg-white shadow-md">
+        <div className="container mx-auto px-4 py-6">
+          <h1 className="text-3xl font-bold text-blue-600">Dashboard</h1>
+          <nav className="mt-4">
+            <Link to="/admin/products" className="text-blue-500 hover:text-blue-700">
+              Go to Products Page →
+            </Link>
+          </nav>
+        </div>
+      </header>
 
-      {/* More detailed sections */}
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Recent Activities</h2>
-        <p className="text-gray-500">Here, you can display the most recent activities like new orders, new users, etc.</p>
-        {/* Add more components like tables, charts, etc. */}
-      </div>
+      <main className="container mx-auto px-4 py-8">
+        {/* Dashboard Summary Section */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <Card title="Total Products" value="100" icon="📦" />
+          <Card title="Total Orders" value="250" icon="🛒" />
+          <Card title="Total Revenue" value="$2,500" icon="💵" />
+        </div>
+
+        {/* More detailed sections */}
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-xl font-semibold text-gray-700 mb-4">Recent Activities</h2>
+          <p className="text-gray-500">Here, you can display the most recent activities like new orders, new users, etc.</p>
+        </div>
+      </main>
     </div>
   );
 };
