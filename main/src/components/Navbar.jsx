@@ -12,9 +12,9 @@ function Navbar() {
         <div className="hidden md:flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <img src="/logo.png" alt="FoodGO" className="h-10" />
-            <div className="flex items-center">
+            <div className="flex items-center font-poppins">
               <span className="text-2xl font-bold">Food</span>
-              <span className="text-2xl font-bold text-[#9FE870]">GO</span>
+              <span className="text-2xl font-bold text-green-600">GO</span>
             </div>
           </Link>
 

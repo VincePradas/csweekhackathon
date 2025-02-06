@@ -35,12 +35,16 @@ const ProductsPage = () => {
     ...new Set(products.map((product) => product.category).filter(Boolean)),
   ];
 
+  console.log("Categories:", categories); // Debugging log
+  console.log("Selected Category:", selectedCategory); // Debugging log
+
   const filteredProducts = products.filter((product) =>
     selectedCategory === "All"
       ? true
       : product.category &&
         product.category.toLowerCase() === selectedCategory.toLowerCase()
   );
+
 
   if (loading) {
     return (

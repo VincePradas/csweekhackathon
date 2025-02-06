@@ -133,7 +133,10 @@ const Dashboard = () => {
           <h2 className="text-xl font-semibold text-gray-700 mb-4">
             Recent Activities
           </h2>
-          <p className="text-gray-500">No recent activity.</p>
+          <p className="text-gray-500">Vince Pradas bought a Fresh Cucumber ×4</p>
+          <p className="text-gray-500">Jake bought a Pure Dairy Milk ×2</p>
+          <p className="text-gray-500">Martin bought a Fresh Grape ×1</p>
+          <p className="text-gray-500">Matthew bought a Fresh Banana ×10</p>
         </div>
       </main>
     </div>

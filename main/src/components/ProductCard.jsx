@@ -31,6 +31,7 @@ const ProductCard = ({ product }) => {
     };
 
     const addToCart = async () => {
+      alert("Added to Cart.")
       setIsLoading(true);
       try {
         await productApi.addToCart(cartData);
