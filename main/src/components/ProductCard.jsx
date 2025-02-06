@@ -44,13 +44,13 @@ const ProductCard = ({ product }) => {
           <p className="text-xs md:text-sm text-gray-600 mb-2 line-clamp-2">{description}</p>
           
           <div className="flex justify-between items-center mt-4">
-            <span className="text-base md:text-lg font-bold text-orange-500">
+            <span className="text-base md:text-lg font-bold text-green-500">
               {formatPrice(price)}
             </span>
             <button 
               className={`px-3 md:px-4 py-1.5 md:py-2 rounded text-sm md:text-base ${
                 stock > 0 
-                  ? 'bg-orange-500 text-white hover:bg-orange-600' 
+                  ? 'bg-green-500 text-white hover:bg-green-600' 
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}
               disabled={stock <= 0}
