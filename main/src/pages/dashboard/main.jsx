@@ -21,11 +21,6 @@ const Dashboard = () => {
       <header className="bg-white shadow-md">
         <div className="container mx-auto px-4 py-6">
           <h1 className="text-3xl font-bold text-blue-600">Dashboard</h1>
-          <nav className="mt-4">
-            <Link to="/admin/products" className="text-blue-500 hover:text-blue-700">
-              Go to Products Page →
-            </Link>
-          </nav>
         </div>
       </header>
 
