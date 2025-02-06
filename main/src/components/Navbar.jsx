@@ -33,16 +33,24 @@ function Navbar() {
             </div>
 
             {/* Icons */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
               <button className="relative">
-              <FontAwesomeIcon icon={faUser} className="text-green-600 text-2xl" />
+                <FontAwesomeIcon icon={faUser} className="text-green-600 text-2xl" />
               </button>
               <div className="flex items-center gap-2">
                 <button className="relative">
-                <FontAwesomeIcon icon={faShoppingCart} className="text-green-600 text-2xl" />
+                    <FontAwesomeIcon icon={faShoppingCart} className="text-green-600 text-2xl" />
                     <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                    0
-                  </span>
+                        0
+                    </span>
+                </button>
+              </div>
+              <div className="flex items-center gap-2">
+                <button className="relative">
+                    <FontAwesomeIcon icon={faHeart} className="text-green-600 text-2xl" />
+                    <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                        0
+                    </span>
                 </button>
               </div>
             </div>
@@ -64,7 +72,7 @@ function Navbar() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-gray-600"
             >
-              <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-2xl`}></i>
+              <FontAwesomeIcon icon={isMobileMenuOpen ? faTimes : faBars} className="text-2xl" />
             </button>
           </div>
 
@@ -79,19 +87,19 @@ function Navbar() {
                   className="w-full py-2 px-4 border rounded-lg focus:outline-none focus:border-green-500"
                 />
                 <button className="absolute right-3 top-1/2 -translate-y-1/2">
-                  <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
+                  <FontAwesomeIcon icon={faSearch} className="text-green-400" />
                 </button>
               </div>
 
               {/* Mobile Navigation */}
               <div className="flex justify-between items-center py-2">
                 <button className="flex items-center gap-2">
-                  <i className="fas fa-user text-xl"></i>
+                  <FontAwesomeIcon icon={faUser} className="text-green-400" />
                   <span>Account</span>
                 </button>
                 <button className="flex items-center gap-2">
                   <div className="relative">
-                    <i className="fas fa-heart text-xl"></i>
+                  <FontAwesomeIcon icon={faHeart} className="text-green-400" />
                     <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                       0
                     </span>
@@ -104,7 +112,7 @@ function Navbar() {
               <div className="flex items-center justify-between py-2 border-t">
                 <div className="flex items-center gap-2">
                   <div className="relative">
-                    <i className="fas fa-shopping-cart text-xl"></i>
+                    <FontAwesomeIcon icon={faShoppingCart} className="text-green-400" />
                     <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                       20
                     </span>
