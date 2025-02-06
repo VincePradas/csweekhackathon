@@ -1,5 +1,12 @@
+import React from 'react';
+import { useState } from 'react';
+
 const ProductCard = ({ product }) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    
     const {
+      _id,
       name,
       description,
       category,
@@ -9,16 +16,52 @@ const ProductCard = ({ product }) => {
       thumbnail
     } = product;
   
-    // Use first media image if available, otherwise use placeholder
     const imageUrl = media?.[0]?.url || thumbnail?.url || '/placeholder-product.jpg';
   
-    // Format price to PHP currency
     const formatPrice = (amount) => {
       return new Intl.NumberFormat('en-PH', {
         style: 'currency',
         currency: 'PHP',
         minimumFractionDigits: 2
       }).format(amount);
+    };
+
+    const addToCart = async () => {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        // Get existing cart from localStorage
+        const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Check if product already exists in cart
+        const existingItemIndex = existingCart.findIndex(item => item.productId === _id);
+        
+        if (existingItemIndex !== -1) {
+          // If product exists, increment quantity
+          existingCart[existingItemIndex].quantity += 1;
+        } else {
+          // If product doesn't exist, add new item
+          existingCart.push({
+            productId: _id,
+            name,
+            price,
+            quantity: 1,
+            imageUrl
+          });
+        }
+
+        // Save updated cart back to localStorage
+        localStorage.setItem('cart', JSON.stringify(existingCart));
+        
+        console.log('Item added to cart successfully');
+
+      } catch (err) {
+        setError('Failed to add item to cart');
+        console.error('Error adding to cart:', err);
+      } finally {
+        setIsLoading(false);
+      }
     };
   
     return (
@@ -42,7 +85,7 @@ const ProductCard = ({ product }) => {
           <div className="text-xs text-gray-500 uppercase mb-1">{category}</div>
           <h3 className="font-semibold text-gray-800 mb-1 text-sm md:text-base">{name}</h3>
           <p className="text-xs md:text-sm text-gray-600 mb-2 line-clamp-2">{description}</p>
-          
+          <p>{_id}</p>
           <div className="flex justify-between items-center mt-4">
             <span className="text-base md:text-lg font-bold text-green-500">
               {formatPrice(price)}
@@ -52,12 +95,19 @@ const ProductCard = ({ product }) => {
                 stock > 0 
                   ? 'bg-green-500 text-white hover:bg-green-600' 
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              }`}
-              disabled={stock <= 0}
+              } ${isLoading ? 'opacity-50 cursor-wait' : ''}`}
+              disabled={stock <= 0 || isLoading}
+              onClick={addToCart}
             >
-              {stock > 0 ? 'Add to Cart' : 'Sold Out'}
+              {isLoading ? 'Adding...' : stock > 0 ? 'Add to Cart' : 'Sold Out'}
             </button>
           </div>
+          
+          {error && (
+            <div className="text-red-500 text-xs mt-2">
+              {error}
+            </div>
+          )}
           
           {stock > 0 && (
             <div className="text-xs md:text-sm text-gray-500 mt-2">
