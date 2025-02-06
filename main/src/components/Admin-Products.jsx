@@ -33,6 +33,10 @@ const AdminProducts = () => {
     setProductForm({ ...productForm, [name]: value });
   };
 
+  const handleFileChange = (e) => {
+    setProductForm({ ...productForm, media: e.target.files[0] });
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -146,6 +150,15 @@ const AdminProducts = () => {
                   name="stock"
                   value={productForm.stock}
                   onChange={handleInputChange}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-700">Image</label>
+                <input
+                  type="file"
+                  name="media"
+                  onChange={handleFileChange}
                   className="w-full p-2 border border-gray-300 rounded"
                 />
               </div>
