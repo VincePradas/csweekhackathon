@@ -6,6 +6,7 @@ import useFetchProducts from "../../hooks/fetchProducts";
 import Header from "../../components/header";
 import AdminProducts from "../../components/Admin-Products";
 
+
 import {
   LineChart,
   Line,
@@ -80,6 +81,17 @@ const OrdersChart = () => (
 
 const Dashboard = () => {
   const { productCount, loading, error } = useFetchProducts();
+
+  const handleEdit = (productId) => {
+    console.log(`Edit product with ID: ${productId}`);
+    
+  };
+
+  const handleDelete = (productId) => {
+    console.log(`Delete product with ID: ${productId}`);
+    
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
       {loading && <p>Loading products...</p>}
@@ -114,8 +126,7 @@ const Dashboard = () => {
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <h2 className="text-xl font-semibold text-gray-700 mb-4">Products</h2>
-          <AdminProducts /> 
+          <AdminProducts onEdit={handleEdit} onDelete={handleDelete} />
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-md">
