@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
-import Navbar from "./Navbar";
+import productApi from "../services/api";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
@@ -11,16 +11,10 @@ const ProductsPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(
-          "https://ecomwebapi-gsbbgmgbfubhc8hk.canadacentral-01.azurewebsites.net/api/vendorproducts/products"
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
-        const data = await response.json();
+        const data = await productApi.getAllProducts();
         setProducts(data);
       } catch (err) {
-        setError(err.message);
+        setError(err.message || "Failed to fetch products");
       } finally {
         setLoading(false);
       }
@@ -29,7 +23,6 @@ const ProductsPage = () => {
     fetchProducts();
   }, []);
 
-  // Get unique categories from products and add 'All' option
   const categories = [
     "All",
     ...new Set(products.map((product) => product.category).filter(Boolean)),
@@ -46,7 +39,7 @@ const ProductsPage = () => {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
         </div>
       </div>
     );
@@ -67,27 +60,21 @@ const ProductsPage = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <div className="flex flex-wrap gap-2 justify-center">
-            {categories.map((category) => (
+            {categories && categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-lg text-sm md:text-base transition-colors
-      ${
-        selectedCategory === category
-          ? "bg-green-500 text-white"
-          : "bg-white text-gray-700 hover:bg-green-100"
-      } border border-green-500/50`}
+                className={`px-4 py-2 rounded-lg text-sm md:text-base transition-colors ${
+                  selectedCategory === category
+                    ? "bg-green-500 text-white" 
+                    : "bg-white text-gray-700 hover:bg-green-100"
+                } border border-green-500/50`}
               >
-                {category === "All"
+                {category === "All" 
                   ? category
-                  : category &&
-                    category
+                  : category
                       .split(" ")
-                      .map(
-                        (word) =>
-                          word.charAt(0).toUpperCase() +
-                          word.slice(1).toLowerCase()
-                      )
+                      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
                       .join(" ")}
               </button>
             ))}
@@ -95,12 +82,13 @@ const ProductsPage = () => {
         </div>
 
         <div className="container mx-auto px-4 py-8">
+          <h1 className="text-2xl font-bold mb-6">Our Products</h1>
           {filteredProducts.length === 0 ? (
             <div className="text-center text-gray-500">
               <p>No products available in this category</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filteredProducts.map((product) => (
                 <ProductCard key={product._id} product={product} />
               ))}

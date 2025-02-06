@@ -1,15 +1,16 @@
 import React from "react";
 import bannerImage from "../../assets/image.png";
+import { Link } from "react-router-dom";
 
 const DonatePage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex-col">
-        <h1 className="text-3xl font-bold text-green-600"><span className="text-black">Food</span>GO</h1>
-        <span className="font-bold text-green-600">Donate</span>
-        </div>
+          <div className="flex flex-col">
+            <Link to="/products" className="text-3xl font-bold text-green-600"><span className="text-black">Food</span>GO</Link>
+            <span className="font-bold text-green-600">Donate</span>
+          </div>
         </div>
       </header>
 
