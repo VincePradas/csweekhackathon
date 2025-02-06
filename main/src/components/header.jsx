@@ -11,7 +11,10 @@ const Header = () => {
   return (
     <header className="bg-white shadow-md">
       <div className="container mx-auto px-4 py-6 flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-green-600">Dashboard</h1>
+        <div className="flex-col">
+        <h1 className="text-3xl font-bold text-green-600"><span className="text-black">Food</span>GO</h1>
+        <span className="font-bold text-green-600">Dashboard</span>
+        </div>
         <nav>
           <button
             onClick={toggleMenu}
@@ -34,10 +37,18 @@ const Header = () => {
             </li>
             <li>
               <Link
+                to="/products"
+                className="text-green-600 transition-all duration-300 ease-in-out"
+              >
+                Products
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/account"
                 className="text-green-600 transition-all duration-300 ease-in-out"
               >
-                Account
+                Logout
               </Link>
             </li>
           </ul>

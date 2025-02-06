@@ -1,7 +1,14 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faShoppingCart, faSearch, faBars, faTimes, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUser,
+  faShoppingCart,
+  faSearch,
+  faBars,
+  faTimes,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,6 +27,12 @@ function Navbar() {
 
           {/* Navigation */}
           <div className="flex items-center gap-8">
+            <div>
+              <Link to="/donate"
+              className="border-2 border-yellow-400 rounded-md px-4 py-2 text-green-600 font-semibold hover:bg-green-600/25 hover:border-2 hover:border-green-600">
+               Donate Food Now!
+              </Link>
+            </div>
             {/* Search Bar*/}
             <div className="relative">
               <input
@@ -35,22 +48,31 @@ function Navbar() {
             {/* Icons */}
             <div className="flex items-center gap-6">
               <button className="relative">
-                <FontAwesomeIcon icon={faUser} className="text-green-600 text-2xl" />
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="text-black text-xl"
+                />
               </button>
               <div className="flex items-center gap-2">
                 <button className="relative">
-                    <FontAwesomeIcon icon={faShoppingCart} className="text-green-600 text-2xl" />
-                    <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                        0
-                    </span>
+                  <FontAwesomeIcon
+                    icon={faShoppingCart}
+                    className="text-black text-xl"
+                  />
+                  <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    0
+                  </span>
                 </button>
               </div>
               <div className="flex items-center gap-2">
                 <button className="relative">
-                    <FontAwesomeIcon icon={faHeart} className="text-green-600 text-2xl" />
-                    <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                        0
-                    </span>
+                  <FontAwesomeIcon
+                    icon={faHeart}
+                    className="text-black text-xl"
+                  />
+                  <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    0
+                  </span>
                 </button>
               </div>
             </div>
@@ -68,11 +90,14 @@ function Navbar() {
                 <span className="text-xl font-bold text-[#9FE870]">GO</span>
               </div>
             </Link>
-            <button 
+            <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-gray-600"
             >
-              <FontAwesomeIcon icon={isMobileMenuOpen ? faTimes : faBars} className="text-2xl" />
+              <FontAwesomeIcon
+                icon={isMobileMenuOpen ? faTimes : faBars}
+                className="text-2xl"
+              />
             </button>
           </div>
 
@@ -99,7 +124,10 @@ function Navbar() {
                 </button>
                 <button className="flex items-center gap-2">
                   <div className="relative">
-                  <FontAwesomeIcon icon={faHeart} className="text-green-400" />
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      className="text-green-400"
+                    />
                     <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                       0
                     </span>
@@ -112,7 +140,10 @@ function Navbar() {
               <div className="flex items-center justify-between py-2 border-t">
                 <div className="flex items-center gap-2">
                   <div className="relative">
-                    <FontAwesomeIcon icon={faShoppingCart} className="text-green-400" />
+                    <FontAwesomeIcon
+                      icon={faShoppingCart}
+                      className="text-green-400"
+                    />
                     <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                       20
                     </span>
@@ -129,4 +160,4 @@ function Navbar() {
   );
 }
 
-export default Navbar; 
+export default Navbar;

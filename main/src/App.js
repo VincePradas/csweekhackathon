@@ -3,17 +3,17 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import './App.css';
 import Dashboard from './pages/dashboard/main';
 import List from './pages/product/list';
-import ProductsPage from './components/ProductPage';
+import DonatePage from './pages/donate/main';
+
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/products" element={<List />} />
+        <Route path="/donate" element={<DonatePage />} />
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/products" element={<List />} />
-        <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </Router>
   );
