@@ -34,25 +34,18 @@ function Navbar() {
 
             {/* Icons */}
             <div className="flex items-center gap-6">
-              <button className="relative">
+              <Link to="/profile" className="relative">
                 <FontAwesomeIcon icon={faUser} className="text-green-600 text-2xl" />
-              </button>
-              <div className="flex items-center gap-2">
+              </Link>
+              <Link to="/mycart" className="flex items-center gap-2">
                 <button className="relative">
                     <FontAwesomeIcon icon={faShoppingCart} className="text-green-600 text-2xl" />
+
                     <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                         0
                     </span>
                 </button>
-              </div>
-              <div className="flex items-center gap-2">
-                <button className="relative">
-                    <FontAwesomeIcon icon={faHeart} className="text-green-600 text-2xl" />
-                    <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                        0
-                    </span>
-                </button>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -97,15 +90,6 @@ function Navbar() {
                   <FontAwesomeIcon icon={faUser} className="text-green-400" />
                   <span>Account</span>
                 </button>
-                <button className="flex items-center gap-2">
-                  <div className="relative">
-                  <FontAwesomeIcon icon={faHeart} className="text-green-400" />
-                    <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                      0
-                    </span>
-                  </div>
-                  <span>Wishlist</span>
-                </button>
               </div>
 
               {/* Cart Summary */}
@@ -114,12 +98,12 @@ function Navbar() {
                   <div className="relative">
                     <FontAwesomeIcon icon={faShoppingCart} className="text-green-400" />
                     <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                      20
+                      0
                     </span>
                   </div>
                   <span>Cart</span>
                 </div>
-                <div className="font-semibold">₱100</div>
+                <div className="font-semibold">₱0</div>
               </div>
             </div>
           )}
