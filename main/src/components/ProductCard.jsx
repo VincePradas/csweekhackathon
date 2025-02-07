@@ -25,44 +25,6 @@ const ProductCard = ({ product }) => {
         minimumFractionDigits: 2
       }).format(amount);
     };
-
-    const addToCart = async () => {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        // Get existing cart from localStorage
-        const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
-        
-        // Check if product already exists in cart
-        const existingItemIndex = existingCart.findIndex(item => item.productId === _id);
-        
-        if (existingItemIndex !== -1) {
-          // If product exists, increment quantity
-          existingCart[existingItemIndex].quantity += 1;
-        } else {
-          // If product doesn't exist, add new item
-          existingCart.push({
-            productId: _id,
-            name,
-            price,
-            quantity: 1,
-            imageUrl
-          });
-        }
-
-        // Save updated cart back to localStorage
-        localStorage.setItem('cart', JSON.stringify(existingCart));
-        
-        console.log('Item added to cart successfully');
-
-      } catch (err) {
-        setError('Failed to add item to cart');
-        console.error('Error adding to cart:', err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
   
     return (
       <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
@@ -97,7 +59,7 @@ const ProductCard = ({ product }) => {
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               } ${isLoading ? 'opacity-50 cursor-wait' : ''}`}
               disabled={stock <= 0 || isLoading}
-              onClick={addToCart}
+              // onClick={addToCart}
             >
               {isLoading ? 'Adding...' : stock > 0 ? 'Add to Cart' : 'Sold Out'}
             </button>

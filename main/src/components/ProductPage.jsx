@@ -29,7 +29,6 @@ const ProductsPage = () => {
     fetchProducts();
   }, []);
 
-  // Get unique categories from products and add 'All' option
   const categories = [
     "All",
     ...new Set(products.map((product) => product.category).filter(Boolean)),
@@ -67,27 +66,21 @@ const ProductsPage = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <div className="flex flex-wrap gap-2 justify-center">
-            {categories.map((category) => (
+            {categories && categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-lg text-sm md:text-base transition-colors
-      ${
-        selectedCategory === category
-          ? "bg-green-500 text-white"
-          : "bg-white text-gray-700 hover:bg-green-100"
-      } border border-green-500/50`}
+                className={`px-4 py-2 rounded-lg text-sm md:text-base transition-colors ${
+                  selectedCategory === category
+                    ? "bg-green-500 text-white" 
+                    : "bg-white text-gray-700 hover:bg-green-100"
+                } border border-green-500/50`}
               >
-                {category === "All"
+                {category === "All" 
                   ? category
-                  : category &&
-                    category
+                  : category
                       .split(" ")
-                      .map(
-                        (word) =>
-                          word.charAt(0).toUpperCase() +
-                          word.slice(1).toLowerCase()
-                      )
+                      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
                       .join(" ")}
               </button>
             ))}
@@ -95,18 +88,19 @@ const ProductsPage = () => {
         </div>
 
         <div className="container mx-auto px-4 py-8">
-          {filteredProducts.length === 0 ? (
-            <div className="text-center text-gray-500">
-              <p>No products available in this category</p>
+                <h1 className="text-2xl font-bold mb-6">Our Products</h1>
+                {products.length === 0 ? (
+                    <div className="text-center text-gray-500">
+                        <p>No products available</p>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {products.map((product) => (
+                            <ProductCard key={product._id} product={product} />
+                        ))}
+                    </div>
+                )}
             </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-              {filteredProducts.map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))}
-            </div>
-          )}
-        </div>
       </main>
     </div>
   );
