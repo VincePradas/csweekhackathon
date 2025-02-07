@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import Navbar from "./Navbar";
+import productApi from "../services/api";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
@@ -11,16 +12,10 @@ const ProductsPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(
-          "https://ecomwebapi-gsbbgmgbfubhc8hk.canadacentral-01.azurewebsites.net/api/vendorproducts/products"
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
-        const data = await response.json();
+        const data = await productApi.getAllProducts();
         setProducts(data);
       } catch (err) {
-        setError(err.message);
+        setError(err.message || "Failed to fetch products");
       } finally {
         setLoading(false);
       }
@@ -45,7 +40,7 @@ const ProductsPage = () => {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
         </div>
       </div>
     );
@@ -88,19 +83,19 @@ const ProductsPage = () => {
         </div>
 
         <div className="container mx-auto px-4 py-8">
-                <h1 className="text-2xl font-bold mb-6">Our Products</h1>
-                {products.length === 0 ? (
-                    <div className="text-center text-gray-500">
-                        <p>No products available</p>
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {products.map((product) => (
-                            <ProductCard key={product._id} product={product} />
-                        ))}
-                    </div>
-                )}
+          <h1 className="text-2xl font-bold mb-6">Our Products</h1>
+          {filteredProducts.length === 0 ? (
+            <div className="text-center text-gray-500">
+              <p>No products available in this category</p>
             </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredProducts.map((product) => (
+                <ProductCard key={product._id} product={product} />
+              ))}
+            </div>
+          )}
+        </div>
       </main>
     </div>
   );
