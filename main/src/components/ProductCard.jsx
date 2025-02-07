@@ -47,7 +47,7 @@ const ProductCard = ({ product }) => {
           <div className="text-xs text-gray-500 uppercase mb-1">{category}</div>
           <h3 className="font-semibold text-gray-800 mb-1 text-sm md:text-base">{name}</h3>
           <p className="text-xs md:text-sm text-gray-600 mb-2 line-clamp-2">{description}</p>
-          <p>{_id}</p>
+          
           <div className="flex justify-between items-center mt-4">
             <span className="text-base md:text-lg font-bold text-green-500">
               {formatPrice(price)}
