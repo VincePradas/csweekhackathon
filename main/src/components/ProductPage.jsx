@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
-import Navbar from "./Navbar";
 import productApi from "../services/api";
 
 const ProductsPage = () => {
