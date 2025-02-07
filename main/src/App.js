@@ -1,5 +1,5 @@
 // App.js
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import Dashboard from './pages/dashboard/main';
 import List from './pages/product/list';
@@ -17,10 +17,12 @@ function App() {
         <Route path="/products" element={<List />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/mycart" element={<Cart />} />
-        <Route path="/vendors" element={<Vendors />} />
         <Route path="/products" element={<List />} />
         <Route path="/donate" element={<DonatePage />} />
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/mycart" element={<Cart />} />
+        <Route path="/vendors" element={<Vendors />} />
       </Routes>
     </Router>
   );

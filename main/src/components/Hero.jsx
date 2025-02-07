@@ -26,9 +26,9 @@ function Hero() {
             Support local agriculture and indulge in the freshest, hand-picked produce. Our platform connects you directly with farmers dedicated to quality and sustainable growth.
           </p>
   
-          <button className="bg-green-600 hover:bg-[#8DD959] text-white font-semibold py-2 md:py-3 px-6 md:px-8 rounded-md text-base md:text-lg transition-colors">
+          <Link to="/" className="bg-green-600 hover:bg-[#8DD959] text-white font-semibold py-2 md:py-3 px-6 md:px-8 rounded-md text-base md:text-lg transition-colors">
             Learn more
-          </button>
+          </Link>
         </div> 
       </div>
     );
