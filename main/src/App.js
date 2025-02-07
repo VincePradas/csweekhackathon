@@ -19,8 +19,6 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/products" element={<List />} />
         <Route path="/donate" element={<DonatePage />} />
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/mycart" element={<Cart />} />
         <Route path="/vendors" element={<Vendors />} />
       </Routes>

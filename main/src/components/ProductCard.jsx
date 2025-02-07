@@ -1,10 +1,14 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import productApi from "../services/api";
 
 const ProductCard = ({ product }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    
+    const [cartData, setCartData] = useState({
+        productId: product._id,
+        quantity: 1
+    });
+
     const {
       _id,
       name,
@@ -25,7 +29,18 @@ const ProductCard = ({ product }) => {
         minimumFractionDigits: 2
       }).format(amount);
     };
-  
+
+    const addToCart = async () => {
+      setIsLoading(true);
+      try {
+        await productApi.addToCart(cartData);
+      } catch (error) {
+        setError('Failed to add to cart. Please try again.');
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
     return (
       <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
         <div className="relative">
@@ -81,5 +96,4 @@ const ProductCard = ({ product }) => {
     )
   };
 
-  
-export default ProductCard; 
+export default ProductCard;
